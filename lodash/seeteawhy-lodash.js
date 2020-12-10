@@ -5,25 +5,6 @@ var seeteawhy = function () {
   //那么最后剩余的元素将组成一个区块。
 
   //定义l为数组长度，如果剩余长度大于size，循环执行拆分操作，如果小于size，剩余元素为最后一个数组
-  /*
-  function chunk(array, size) {
-    let l = array.length
-    let result = []
-    let temp = []
-    while (l > size) {
-      for (let i = 0; i < size; i++){
-        temp.push(array[0])
-        
-        array.shift()
-      }
-      result.push(temp) 
-      l -= size
-      temp = []
-    } 
-    result.push(array)
-    return result
-  }
-  */
 
   //将原数组截成length/size段，slice进新数组
   function chunk(array, size) {
@@ -85,6 +66,7 @@ var seeteawhy = function () {
     }
     return array
   }
+  
 
   //遍历最外层数组，找出2层及以上的元素，将外层元素和展开数组后的元素push到新数组
   function flatten(array) {
@@ -110,8 +92,74 @@ var seeteawhy = function () {
     return newobj
   }
 
+  //get first element in array
+  function head(array) {
 
+      return array[0]
 
+  }
+
+  function indexOf(array, value, fromidx = 0) {//Js
+    for (let i = fromidx; i < array.length; i++){
+      if (array[i] === value) {
+        return i
+      }
+    }
+    return -1
+  }
+
+  //delete the last element of the array
+  function initial(array) {
+    array.length -= 1
+    return array
+  }
+
+  function join(array, separator = ',') {//Js
+    let resultString = ''
+    for (let i = 0; i < array.length-1; i++){
+      resultString += array[i]+''+separator //string
+    }
+    resultString += array[array.length-1]
+    return resultString
+  }
+
+  function last(array) {
+    return (array[array.length - 1])
+  }
+
+  function lastIndexOf(array, value, fromidx = array.length-1) {//Js
+    for (let i = fromidx; i > 0; i--){
+      if (array[i] === value) {
+        return i
+      }
+    }
+    return -1
+  }
+
+  function reverse(array) {
+    var temp = 0
+    var j = array.length -1
+    for (let i = 0; i < Math.floor(array.length / 2); i++) {
+      temp = array[i]
+      array[i] = array[j]
+      array[j--] = temp  
+    }
+    return array
+  }
+
+  function sortedIndex(array, value) {
+    let left = 0
+    let right = array.length - 1
+    while (left < right -1) {
+      var mid = Math.floor((right + left) / 2)
+      if (array[mid] > value) {
+        right = mid
+      } else {
+        left = mid
+      }
+    }
+    return indexOf(array[left])
+  }
 
 
 
@@ -125,6 +173,13 @@ var seeteawhy = function () {
     dropRight,
     fill,
     flatten,
-    fromPairs
+    fromPairs,
+    head,
+    indexOf,
+    initial,
+    join,
+    last,
+    lastIndexOf,
+    reverse,
   }
 }()
