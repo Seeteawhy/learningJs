@@ -33,6 +33,25 @@ var seeteawhy = function () {
     return newArray;
   }
 
+  function difference(array) {
+    let l = arguments.length
+    let comparison = []
+    for (let i = 1; i < l; i++){
+      arguments[i].forEach(item => {
+        if (array.indexOf(item) >= 0) {
+          comparison.push(item)
+        }
+      })    
+    }
+    let result = []
+    array.forEach(item => {
+      if (comparison.indexOf(item) < 0) {
+        result.push(item)
+      }
+    })
+    return result
+  }
+
   //先处理边缘情况，再用slice切
   function drop(array, n = 1) { 
     if (n < 0) n = 0
@@ -80,6 +99,44 @@ var seeteawhy = function () {
         }
       }
     }
+    return result
+  }
+
+  function flattenDeep(array) {
+    let result = []
+    function reFlatten(array) {
+      if (!Array.isArray(array)) {
+        return array
+      } 
+      array.forEach(function (elem) {
+        if (Array.isArray(elem)) {
+          reFlatten(elem)
+        } else {
+          result.push(elem)
+        }
+      })
+      } 
+      reFlatten(array)
+    return result
+  }
+  
+  function flattenDepth(array, depth = 1) {
+    let result = []
+    
+    function reFlatten(array) {
+      if (!Array.isArray(array)) {
+        return array
+      } 
+      array.forEach(function (elem) {
+        if (Array.isArray(elem) && depth) {
+          depth--
+          reFlatten(elem)
+        } else {
+          result.push(elem)
+        }
+      })
+      } 
+      reFlatten(array)
     return result
   }
 
@@ -147,19 +204,37 @@ var seeteawhy = function () {
     return array
   }
 
-  function sortedIndex(array, value) {
+  function sortedIndex(array, value) {//binary search
     let left = 0
     let right = array.length - 1
-    while (left < right -1) {
-      var mid = Math.floor((right + left) / 2)
-      if (array[mid] > value) {
-        right = mid
+    while (left <= right ) {
+      var mid = (right + left) >> 1
+      if (array[mid] >= value) {
+        right = mid - 1
       } else {
-        left = mid
+        left = mid + 1
       }
     }
-    return indexOf(array[left])
+    return left
   }
+
+  function concat(array) {//push the flatten array / num directly to the new array
+    let l = arguments.length
+    let result = []
+    for (let i = 0; i < l; i++){
+      if (Array.isArray(arguments[i])) {
+        arguments[i].forEach((item) => {
+        result.push(item)
+        })        
+      } else {
+        result.push(arguments[i])
+      }
+    }
+    return result
+  }
+
+
+
 
 
 
@@ -169,10 +244,13 @@ var seeteawhy = function () {
   return {
     compact,
     chunk,
+    difference,
     drop,
     dropRight,
     fill,
     flatten,
+    flattenDeep,
+    flattenDepth,
     fromPairs,
     head,
     indexOf,
@@ -181,5 +259,7 @@ var seeteawhy = function () {
     last,
     lastIndexOf,
     reverse,
+    sortedIndex,
+    concat,
   }
 }()
