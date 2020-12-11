@@ -1,10 +1,6 @@
 var seeteawhy = function () {
   //-----------------------数组-------------------------
-  //将数组（array）拆分成多个 size 长度的区块，
-  //并将这些区块组成一个新数组。 如果array 无法被分割成全部等长的区块，
-  //那么最后剩余的元素将组成一个区块。
 
-  //定义l为数组长度，如果剩余长度大于size，循环执行拆分操作，如果小于size，剩余元素为最后一个数组
 
   //将原数组截成length/size段，slice进新数组
   function chunk(array, size) {
@@ -33,7 +29,7 @@ var seeteawhy = function () {
     return newArray;
   }
 
-  function difference(array) {
+  function difference(array) { //get same items from other arguments, then kill them
     let l = arguments.length
     let comparison = []
     for (let i = 1; i < l; i++){
@@ -234,6 +230,42 @@ var seeteawhy = function () {
   }
 
 
+  //--------------------------------------math-----------------------------------
+  function max(array) {
+    if (array.length === 0) return undefined
+    let maxn = -Infinity
+    for (let i = 0; i < array.length; i++){
+      if (array[i] > maxn) {
+        maxn = array[i]
+      }
+    }
+    return maxn
+  }
+
+  function min(array) {
+    if (array.length === 0) return undefined
+    let min = Infinity
+    for (let i = 0; i < array.length; i++){
+      if (array[i] < min) {
+        min = array[i]
+      }
+    }
+    return min
+  }   
+
+  function sum(array) {
+    let result = []
+    result = array.reduce((pre, cur) => {
+      return pre + cur
+    })
+    return result
+
+  }
+ 
+
+
+
+
 
 
 
@@ -261,5 +293,9 @@ var seeteawhy = function () {
     reverse,
     sortedIndex,
     concat,
+    max,
+    min,
+    sum,
+
   }
 }()
