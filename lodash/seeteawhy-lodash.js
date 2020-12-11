@@ -66,6 +66,7 @@ var seeteawhy = function () {
     return result
   }
 
+
   //遍历start到end，令数组元素为value
   function fill(array, value, start = 0, end = array.length) {
     const length = array == null ? 0 : array.length
@@ -189,6 +190,19 @@ var seeteawhy = function () {
     return -1
   }
 
+  function pull(array) {//splice from end to start
+    let l = arguments.length
+    for (let i = 1; i < l; i++){
+      for (let j = array.length - 1; j >= 0; j--){
+        if (array[j] === arguments[i]) {
+          array.splice(j,1)
+        }
+      }
+      
+    }
+    return array
+  }
+
   function reverse(array) {
     var temp = 0
     var j = array.length -1
@@ -213,6 +227,15 @@ var seeteawhy = function () {
     }
     return left
   }
+  function union(...array) {
+
+    return Array.from(new Set([].concat(...array)))
+  }
+
+  function uniq(array) {
+    return Array.from(new Set(array))
+  }
+  //
 
   function concat(array) {//push the flatten array / num directly to the new array
     let l = arguments.length
@@ -230,7 +253,7 @@ var seeteawhy = function () {
   }
 
 
-  //--------------------------------------math-----------------------------------
+  //---------------------------------math-----------------------------------
   function max(array) {
     if (array.length === 0) return undefined
     let maxn = -Infinity
@@ -259,7 +282,6 @@ var seeteawhy = function () {
       return pre + cur
     })
     return result
-
   }
  
 
@@ -290,8 +312,11 @@ var seeteawhy = function () {
     join,
     last,
     lastIndexOf,
+    pull,
     reverse,
     sortedIndex,
+    union,
+    uniq,
     concat,
     max,
     min,
