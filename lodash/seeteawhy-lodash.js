@@ -190,6 +190,13 @@ var seeteawhy = function () {
     return -1
   }
 
+  function nth(array, n = 0) {
+    if (n < 0) {
+      n = array.length - 1
+    }
+    return array[n]
+  }
+
   function pull(array) {//splice from end to start
     let l = arguments.length
     for (let i = 1; i < l; i++){
@@ -235,7 +242,11 @@ var seeteawhy = function () {
   function uniq(array) {
     return Array.from(new Set(array))
   }
-  //
+
+  //return the first arguments
+  function identity(...value) {
+    return arguments[0]
+  }
 
   function concat(array) {//push the flatten array / num directly to the new array
     let l = arguments.length
@@ -251,6 +262,8 @@ var seeteawhy = function () {
     }
     return result
   }
+
+
 
 
   //---------------------------------math-----------------------------------
@@ -312,15 +325,22 @@ var seeteawhy = function () {
     join,
     last,
     lastIndexOf,
+    nth,
     pull,
     reverse,
     sortedIndex,
     union,
     uniq,
+    identity,
     concat,
     max,
     min,
     sum,
+    property(str) {
+      return function (obj) {
+        return obj[str];
+      };
+    },
 
   }
 }()
