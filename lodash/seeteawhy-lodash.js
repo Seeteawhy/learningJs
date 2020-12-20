@@ -249,6 +249,10 @@ var seeteawhy = function () {
     return result
   }
 
+  function isArray(value) {
+    return Object.prototype.toString.call(value) ==='[object Array]'
+  }
+
   //获取对象路径处的值, 如果解析未定义, 就返回默认值
   function get(object, path, defaultValue = 'undefined') {
     let names = path.split('.')
@@ -350,22 +354,21 @@ var seeteawhy = function () {
     }
   }
 
+
   function isMatch(obj,src) {
-    return function (obj) {
-      for (let key in src) {
-        if (src[key] && typeof src[key] === 'object') {
-          if (!isMatch(obj[key], src[key])) {
-            return false
-          }
-        } else {
-          if (src[key] !== obj[key]) {
-            return false
-          }
+    for (let key in src) {
+      if (src[key] && typeof src[key] === 'object') {
+        if (!isMatch(obj[key], src[key])) {
+          return false
         }
-        
+      } else {
+        if (src[key] !== obj[key]) {
+          return false
+        }
       }
-      return true
+      
     }
+    return true
   }
 
   function matches(source) {
@@ -384,9 +387,15 @@ var seeteawhy = function () {
    * @param {*} srcValue 待比较的属性值
    * @returns {Function}
    */
-  function matchesProperty(ary) {//讲了啥哦
-    return this.matches(this.fromPairs(this.chunk(ary, 2)));
 
+  function matchesProperty(path, srcValue) {
+    if (Array.isArray(path)) {
+      srcValue = path[1];
+      path = path[0];
+    }
+    return (obj) => {
+      return obj[path] == srcValue;
+    };
   }
 
   function iteratee(predicate) {
@@ -509,7 +518,8 @@ var seeteawhy = function () {
     dropWhile,
     findIndex,
     findLastIndex,
-    intersection
+    intersection,
+    isArray
 
   }
 }()
